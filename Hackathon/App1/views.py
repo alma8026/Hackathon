@@ -4,3 +4,11 @@ from django.shortcuts import render
 def IndexView(request):
     """Página de inicio"""
     return render(request, "index.html")
+
+def LoginView(request):
+    """Página de login"""
+    return render(request, "login.html")
+
+def RegisterView(request):
+    """Página de register"""
+    return render(request, "register.html")
