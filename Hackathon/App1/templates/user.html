@@ -29,11 +29,11 @@
       <div class="bg-gray-900 px-6 py-8 sm:px-8 sm:py-10">
         <div class="flex items-center space-x-4">
           <div>
-            <h2 class="text-2xl font-bold mb-4" style="color: white;">Jared Palmer</h2>
+            <h2 class="text-2xl font-bold mb-4" style="color: white;"> {{ usuario.nombre }} {{ usuario.apellido }} </h2>
             <h3 class="text-lg mb-4" style="color: white;">
-                <i class="fa-regular fa-envelope pr-2"></i> jared@gmail.com</h3>  
+                <i class="fa-regular fa-envelope pr-2"></i> {{user}} </h3>  
             <p style="color: white">
-                <i class="fa-regular fa-calendar pr-2"></i> June 15, 1990
+                <i class="fa-regular fa-calendar pr-2"></i> {{ usuario.birthday }}
             </p>
           </div>
         </div>

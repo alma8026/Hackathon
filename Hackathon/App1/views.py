@@ -3,19 +3,24 @@ from django.contrib.auth.decorators import login_required
 from .models import Curso
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Usuarios
+from .models import Curso, Usuarios
 from django.contrib.auth.models import User
-
-# Create your views here.
 
 def IndexView(request):
     """Página de inicio"""
-    if not request.user.is_authenticated:
-        return redirect('login')
-    else:
-        cursos = Curso.objects.all()
-        user = request.user
-    return render(request, "index.html", context={'cursos':cursos, 'user': user})
+    cursos = Curso.objects.all() if request.user.is_authenticated else []
+    user = request.user if request.user.is_authenticated else None
+    usuario = None
+
+    if user:
+        try:
+            usuario = user.usuarios  # Intenta acceder al objeto Usuarios asociado al User
+        except Usuarios.DoesNotExist:
+            print("No existe un objeto Usuarios asociado a este usuario")
+
+    context = {'cursos': cursos, 'user': user, 'usuario': usuario}
+    return render(request, "index.html", context=context)
+
 
 # def LoginView(request):
     """Página de login"""
@@ -72,7 +77,17 @@ def cursos_view(request):
 
 def UserView(request):
     """Página de user"""
-    return render(request, "user.html")
+    user = request.user if request.user.is_authenticated else None
+    usuario = None
+
+    if user:
+        try:
+            usuario = user.usuarios  # Intenta acceder al objeto Usuarios asociado al User
+        except Usuarios.DoesNotExist:
+            print("No existe un objeto Usuarios asociado a este usuario")
+
+    context = {'user': user, 'usuario': usuario}
+    return render(request, "user.html", context=context)
 
 def LogoutView(request):
     logout(request)

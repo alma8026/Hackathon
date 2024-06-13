@@ -20,106 +20,45 @@
         </div>
     </header>
     <!-------------------------------- Header -------------------------------->
-    <section class="bg-gray-100 mt-5 mb-5">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
+    <section class="bg-white mt-64 mb-32">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-                        Crear una cuenta
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                        Create an account
                     </h1>
-                    <form class="space-y-4 md:space-y-6" [formGroup]="myform" (ngSubmit)="submit()">
-                        <div> 
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Pedro" formControlName="name">
-                            <span class="text-red-600" *ngIf="this.myform.get('name')?.errors?.['required'] && this.myform.get('name')?.touched">
-                                ¡El nombre no puede estar vacio!
-                            </span>
-                            <span class="text-red-600" *ngIf="this.myform.get('name')?.errors?.['pattern'] && this.myform.get('name')?.touched">
-                                ¡El nombre no puede contener números ni carácteres especiales!
-                            </span>
-                        </div>
-                        <div> 
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-                            <input type="text" name="lastname" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="García García" formControlName="lastname">
-                            <span class="text-red-600" *ngIf="this.myform.get('lastname')?.errors?.['required'] && this.myform.get('lastname')?.touched">
-                                ¡El apellido no puede estar vacio!
-                            </span>
-                            <span class="text-red-600" *ngIf="this.myform.get('lastname')?.errors?.['pattern'] && this.myform.get('lastname')?.touched">
-                                ¡El apellido no puede contener números ni carácteres especiales!
-                            </span>                                           
+                    <form method="post" action="{% url 'crear_usuario' %}" class="space-y-4 md:space-y-6">
+                        {% csrf_token %}
+                        <div>
+                            <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                            <input type="text" id="nombre" name="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Name" required>
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@fundesplai.com" formControlName="email">
-                            <span class="text-red-600" *ngIf="this.myform.get('email')?.errors?.['pattern'] && this.myform.get('email')?.touched">
-                                ¡Formato incorrecto para el email!
-                            </span>
-                            <span class="text-red-600" *ngIf="this.myform.get('email')?.errors?.['required'] && this.myform.get('email')?.touched">
-                                ¡El email no puede estar vacio!
-                            </span>
-            
+                            <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                            <input type="text" id="apellido" name="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Last name" required>
                         </div>
-                        <div> 
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
-                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="password">
-                            <span class="text-red-600" *ngIf="this.myform.get('password')?.errors?.['required'] && this.myform.get('password')?.touched">
-                            ¡La contraseña no puede estar vacio!
-                        </span>
-                        <span class="text-red-600" *ngIf="this.myform.get('password')?.errors?.['minlength'] && this.myform.get('password')?.touched">
-                            ¡La contraseña tiene que tener un mínimo de 8 carácteres!
-            
-                        </span>
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                            <input type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required>
+                        </div>
+                        <div>
+                            <label for="contraseña" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                            <input type="password" id="contraseña" name="contraseña" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="••••••••" required>
+                        </div>
+                        <div>
+                            <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900">Birthdate</label>
+                            <input type="date" id="birthday" name="birthday" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                        </div>
 
-                        </div>
-                        <div>
-                            <label for="rpassword" class="block mb-2 text-sm font-medium text-gray-900">Confirma la contraseña</label>
-                            <input type="password" name="rpassword" id="rpassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="rpassword" appConfirmPassword [param]="this.myform.value.password">
-                            <span class="text-red-600" *ngIf="this.myform.get('rpassword')?.errors?.['required'] && this.myform.get('rpassword')?.touched">
-                            ¡La contraseña no puede estar vacio!
-                        </span>
-                        <span class="text-red-600" *ngIf="this.myform.get('rpassword')?.errors?.['minLenght'] && this.myform.get('rpassword')?.touched">
-                            ¡La contraseña tiene que tener un mínimo de 8 carácteres!
-            
-                        </span>
-                        <span class="text-red-600" *ngIf="this.myform.get('rpassword')?.errors?.['noMatch'] && this.myform.get('rpassword')?.touched">
-                            ¡La contraseña no coincide!
-                        </span>         
-                                
-                        </div>
-                        <div>
-                            <label for="birthdate" class="block mb-2 text-sm font-medium text-gray-900">Nacimiento</label>
-                            <input type="date" name="birthdate" id="birthdate" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" formControlName="birthdate">
-                            <span class="text-red-600" *ngIf="this.myform.get('birthdate')?.errors?.['required'] && this.myform.get('birthdate')?.touched">
-                                ¡El cumpleaños no puede estar vacio!
-                            </span>
-                            <span class="text-red-600" *ngIf="this.myform.get('birthdate')?.errors?.['futureDate'] && this.myform.get('birthdate')?.touched">
-                                ¡No puedes poner una fecha futura!
-                            </span>
-            
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                              <input id="terms" aria-describedby="terms" type="checkbox" formControlName="terms" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300">
-                            </div>
-                            <div class="ml-3 text-sm">
-                              <label for="terms" class="font-light text-gray-500 ">Acepto los <a class="font-medium text-primary-600 hover:underline">Terminos y condiciones</a></label>
-                            </div>
-                            <span class="text-red-600" *ngIf="this.myform.get('terms')?.errors?.['required'] && this.myform.get('terms')?.touched">
-                                Acepta los terminos y condiciones para registrarte.
-                            </span>
-                        </div>
-                        <div *ngIf="myform.invalid">
-                            <span class="text-red-300">Completa el formulario para registrarte.</span>
-                        </div>
-                        <button class="w-full text-white bg-gray-900 hover:bg-white hover:text-gray-900 border border-gray-900 hover: transition duration-200 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit" [disabled]="myform.invalid">Crear una cuenta</button>
-                        <p class="text-sm font-light text-gray-500">
-                            ¿Ya tienes una cuenta? <a href="/login" class="font-medium text-primary-600 hover:underline ">Inicia sesión</a>
-                        </p>
+                        <button type="submit" class=" bg-blue-800 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create an account</button>
                     </form>
+                    <p class="text-sm font-light text-gray-500">
+                        Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline">Login here</a>
+                    </p>
                 </div>
             </div>
         </div>
-      </section>
+    </section>
       <!-- ················································ FOOTER ················································· -->
       <footer class="bg-gray-900 shadow dark:bg-gray-900 w-full mt-auto">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
