@@ -1,15 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Curso
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Usuarios
 from django.contrib.auth.models import User
 
 # Create your views here.
+
 def IndexView(request):
     """Página de inicio"""
-    return render(request, "index.html")
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        cursos = Curso.objects.all()
+        user = request.user
+    return render(request, "index.html", context={'cursos':cursos, 'user': user})
 
 # def LoginView(request):
     """Página de login"""
@@ -19,7 +25,8 @@ def IndexView(request):
 def LoginView(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        contraseña = request.POST.get('contraseña')
+        contraseña = request.POST.get('password')
+        print(email, contraseña)
         user = authenticate(request, username=email, password=contraseña)
         if user is not None:
             login(request, user)
@@ -62,3 +69,11 @@ def crear_usuario(request):
 def cursos_view(request):
     cursos = Curso.objects.all()
     return render(request, 'cursos.html', {'cursos': cursos})
+
+def UserView(request):
+    """Página de user"""
+    return render(request, "user.html")
+
+def LogoutView(request):
+    logout(request)
+    return redirect('/')
