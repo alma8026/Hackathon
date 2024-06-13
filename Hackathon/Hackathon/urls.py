@@ -7,4 +7,5 @@ urlpatterns = [
     path('', include("App1.urls")),
     path('login', include("App1.urls")),
     path('register', include("App1.urls")),
+    
 ]
